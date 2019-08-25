@@ -9,6 +9,8 @@ Wikipedia:
 
 Dependency Injection is the new `new`.
 
+Rather than looking up dependencies directly or from factories, the pattern recommends that dependencies are passed in. The process of setting dependencies into an object is called injection.
+
 The client `RealBillingService` does not construct its services `CreditCardProcessor` and `TransactionLog`.
 Instead, the services are [passed to](https://github.com/google/guice/wiki/Motivation) the constructor of `RealBillingService`. 
 
