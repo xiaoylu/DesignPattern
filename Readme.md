@@ -10,7 +10,7 @@ Wikipedia:
 Dependency Injection is the new `new`.
 
 The client `RealBillingService` does not construct its services `CreditCardProcessor` and `TransactionLog`.
-Instead, the services are passed to the constructor of `RealBillingService`. 
+Instead, the services are [passed to](https://github.com/google/guice/wiki/Motivation) the constructor of `RealBillingService`. 
 
 ```Java
 public class RealBillingService implements BillingService {
