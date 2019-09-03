@@ -46,4 +46,46 @@ public class RealBillingService implements BillingService {
 }
 ```
 
+Guice
+---
+* Guice is a dependency injection framework
+```java
+class BillingService {
+  private final CreditCardProcessor processor;
+  private final TransactionLog transactionLog;
+
+  @Inject
+  BillingService(CreditCardProcessor processor, 
+      TransactionLog transactionLog) {
+    this.processor = processor;
+    this.transactionLog = transactionLog;
+  }
+
+  public Receipt chargeOrder(PizzaOrder order, CreditCard creditCard) {
+    ...
+  }
+}
+```
+
+* map types to their implementations.
+```java
+public class BillingModule extends AbstractModule {
+  @Override 
+  protected void configure() {
+     bind(TransactionLog.class).to(DatabaseTransactionLog.class);
+     bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
+  }
+}
+```
+
+* when `getInstance(BillingService.class)` gets called, Guice figures out the dependencies of `BillingService`, i.e. `DatabaseTransactionLog` and `PaypalCreditCardProcessor`, creates them and wires everything together
+```java
+public static void main(String[] args) {
+  Injector injector = Guice.createInjector(new BillingModule());
+  BillingService billingService = injector.getInstance(BillingService.class);
+  ...
+}
+```
+
+
 
