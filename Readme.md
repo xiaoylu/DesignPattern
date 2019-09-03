@@ -120,4 +120,17 @@ public static void main(String[] args) {
 }
 ```
 
-
+* Lazy Creation via `Provider<>`
+  * Declare `Provider<Pet> petProvider`
+  * Lazily call `petProvider.get()` -- it finds the `PetModule` which maps `Pet` to `Cat`  
+  ```java
+  public class PetModule extends AbstractModule {
+    @Override
+    public void configure() {}
+    
+    @Provides
+    Pet providePet() { return new Cat(); }
+  }
+  ```
+  
+* 
