@@ -22,6 +22,10 @@ public class RealBillingService implements BillingService {
   @Inject
   public RealBillingService(CreditCardProcessor processor,
       TransactionLog transactionLog) {
+    // the direct, compile-time dependency is difficult to test
+    // BAD: this.processor = new CreditCardProcessor();
+    // BAD: this.transactionLog = new TransactionLog();
+    
     this.processor = processor;
     this.transactionLog = transactionLog;
   }
