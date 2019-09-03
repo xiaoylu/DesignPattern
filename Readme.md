@@ -132,5 +132,4 @@ public static void main(String[] args) {
     Pet providePet() { return new Cat(); }
   }
   ```
-  
-* 
+  * You can control how many `Cat` are injected as `Pet`
