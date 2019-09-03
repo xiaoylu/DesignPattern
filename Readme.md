@@ -22,7 +22,7 @@ public class RealBillingService implements BillingService {
   @Inject
   public RealBillingService(CreditCardProcessor processor,
       TransactionLog transactionLog) {
-    // the direct, compile-time dependency is difficult to test
+    // difficult to test code due to the compile-time dependency 
     // BAD: this.processor = new CreditCardProcessor();
     // BAD: this.transactionLog = new TransactionLog();
     
@@ -46,9 +46,9 @@ public class RealBillingService implements BillingService {
 }
 ```
 
-Guice
+Guice is a dependency injection framework
 ---
-* Guice is a dependency injection framework
+* Declare @Inject constructors
 ```java
 class BillingService {
   private final CreditCardProcessor processor;
@@ -67,18 +67,51 @@ class BillingService {
 }
 ```
 
-* map types to their implementations.
+* Map types to their implementations.
 ```java
-public class BillingModule extends AbstractModule {
+
+// option 1. bind to class
+public class FooModule extends AbstractModule {
   @Override 
   protected void configure() {
-     bind(TransactionLog.class).to(DatabaseTransactionLog.class);
-     bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
+     bind(Foo.class).to(SubclassFoo.class);
   }
 }
+
+// option 2. bind to instance (ThirdPartyFoo without @Injector)
+public class FooModule extends AbstractModule {
+  @Override
+  public void configure() {
+    bind(Foo.class).toInstance(ThirdPartyFoo.create());
+  }
+}
+
+// option 3. bind via @Provides 
+// Guice implicitly calls @Provides methods any time their 
+// return type is requested with some @Inject constructor
+// @Provides methods can have parameters that are injected by Guice
+
+import com.google.inject.Provides;
+...
+
+public class PetModule extends AbstractModule {
+  @Override
+  public void configure() {
+    bind(House.class).to(Mansion.class);
+  }
+
+  @Provides
+  Pet providePet(House house) { return ThirdPartyCat.create(house); }
+}
+
+// option 3. notes
+// @Provides methods will be called each time the dependency is requested, unless they are tagged with the 
+// With @Singleton + @Provides, the Guice injector will only create a single instance and reuse it any time
 ```
 
-* when `getInstance(BillingService.class)` gets called, Guice figures out the dependencies of `BillingService`, i.e. `DatabaseTransactionLog` and `PaypalCreditCardProcessor`, creates them and wires everything together
+* Runtime Dependency
+
+When `getInstance(BillingService.class)` gets called, Guice figures out the dependencies of `BillingService`, i.e. `DatabaseTransactionLog` and `PaypalCreditCardProcessor`, creates them and wires everything together
 ```java
 public static void main(String[] args) {
   Injector injector = Guice.createInjector(new BillingModule());
@@ -86,6 +119,5 @@ public static void main(String[] args) {
   ...
 }
 ```
-
 
 
