@@ -52,19 +52,12 @@ Guice is a dependency injection framework
 ---
 * Declare @Inject constructors
 ```java
-class BillingService {
-  private final CreditCardProcessor processor;
-  private final TransactionLog transactionLog;
+class FooService {
+  private final MyDependency myDependency;
 
   @Inject
-  BillingService(CreditCardProcessor processor, 
-      TransactionLog transactionLog) {
-    this.processor = processor;
-    this.transactionLog = transactionLog;
-  }
-
-  public Receipt chargeOrder(PizzaOrder order, CreditCard creditCard) {
-    ...
+  FooService(MyDependency myDependency) {
+    this.myDependency = myDependency;
   }
 }
 ```
@@ -80,7 +73,7 @@ public class FooModule extends AbstractModule {
   }
 }
 
-// option 2. bind to instance (ThirdPartyFoo without @Injector)
+// option 2. bind to instance (ThirdPartyFoo instance without @Injector)
 public class FooModule extends AbstractModule {
   @Override
   public void configure() {
@@ -108,23 +101,23 @@ public class PetModule extends AbstractModule {
 
 // option 3. notes
 // @Provides methods will be called each time the dependency is requested, unless they are tagged with the 
-// With @Singleton + @Provides, the Guice injector will only create a single instance and reuse it any time
+// with @Singleton + @Provides, the Guice injector will only create a single instance and reuse it any time
 ```
 
-* Runtime Dependency
+* Runtime dependency instead of compile-time dependency
 
-When `getInstance(BillingService.class)` gets called, Guice figures out the dependencies of `BillingService`, i.e. `DatabaseTransactionLog` and `PaypalCreditCardProcessor`, creates them and wires everything together
 ```java
 public static void main(String[] args) {
-  Injector injector = Guice.createInjector(new BillingModule());
-  BillingService billingService = injector.getInstance(BillingService.class);
+  Injector injector = Guice.createInjector(new FooModule());
+  FooService fooService = injector.getInstance(FooService.class);
   ...
 }
 ```
+When `getInstance(FooService.class)` gets called, Guice figures out the dependencies of `FooService` creates them and wires everything together.
 
 * Lazy Creation via `Provider<>`
   * Declare `Provider<Pet> petProvider`
-  * Lazily call `petProvider.get()` -- it finds the `PetModule` which maps `Pet` to `Cat`  
+  * Lazily call `petProvider.get()` -- it finds out the `PetModule` maps `Pet` to `Cat`, so it returns a `Cat` object.
   ```java
   public class PetModule extends AbstractModule {
     @Override
@@ -134,4 +127,4 @@ public static void main(String[] args) {
     Pet providePet() { return new Cat(); }
   }
   ```
-  * You can control how many `Cat` are injected as `Pet`
+  * You can control how many `Cat` are injected as `Pet` by calling `petProvider.get()` many times.
