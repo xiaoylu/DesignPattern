@@ -19,7 +19,7 @@ When the argument int `i` is in this range, instead of creating a new `Integer`,
 public final class Integer extends Number implements Comparable<Integer> {
     
     ...
-    
+    // Static Factory Method
     public static Integer valueOf(int i) {
         if (i >= IntegerCache.low && i <= IntegerCache.high)
             return IntegerCache.cache[i + (-IntegerCache.low)];
