@@ -8,7 +8,7 @@ Static Factory Method, unlike a public constructor,
 * create a new object **only if** necessary
 * can return a subtype
 
-For example, Integer has a cache for the integers in [-128,127].
+For example, Java [Integer](http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/lang/Integer.java) has a cache for the integers in [-128,127].
 When the argument int `i` is in this range, instead of creating a new `Integer`,
 `Integer.valueOf(i)` return the cached `Integer(i)`.
 
