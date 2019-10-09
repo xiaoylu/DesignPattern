@@ -10,7 +10,7 @@ Famous exmaples of Buidler:
 * protocol buffer 
 
 ```java
-// see https://howtodoinjava.com/design-patterns/creational/builder-pattern-in-java/
+// copied from https://howtodoinjava.com/design-patterns/creational/builder-pattern-in-java/
 public class User
 {
     //All final attributes
