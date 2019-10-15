@@ -1,7 +1,7 @@
 Builder
 ===
 A Builder pattern allows:
-* creating immutable classes
+* creating immutable classes which are thread-safe and usually more memory-efficient (thanks to read-only).
 * step-by-step creation of complex objects (of many attributes)
 
 We want to avoid overloading too many constructors, but setter functions are not allowed (because of the immutability).
@@ -10,7 +10,7 @@ Famous exmaples of Buidler:
 * protocol buffer 
 
 ```java
-// copied from https://howtodoinjava.com/design-patterns/creational/builder-pattern-in-java/
+// code copied from https://howtodoinjava.com/design-patterns/creational/builder-pattern-in-java/
 public class User
 {
     //All final attributes
