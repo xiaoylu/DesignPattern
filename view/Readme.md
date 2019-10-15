@@ -14,7 +14,7 @@ public static <E> ImmutableSet<E> copyOf(Collection<? extends E> elements) {
     @SuppressWarnings("unchecked") // all supported methods are covariant
     ImmutableSet<E> set = (ImmutableSet<E>) elements;
     if (!set.isPartialView()) {
-      return set;
+      return set;  // Another View!
     }
   } else if (elements instanceof EnumSet) {
     return copyOfEnumSet((EnumSet) elements);
