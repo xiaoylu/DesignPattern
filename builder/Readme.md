@@ -8,6 +8,7 @@ We want to avoid overloading too many constructors, but setter functions are not
 
 Famous exmaples of Buidler:
 * protocol buffer 
+* `ImmutableSet` in Java
 
 ```java
 // code copied from https://howtodoinjava.com/design-patterns/creational/builder-pattern-in-java/
