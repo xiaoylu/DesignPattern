@@ -68,8 +68,8 @@ class Person:
         return Person(name, date.today().year - fatherAge + fatherPersonAgeDiff)
 
     @classmethod
-    def fromBirthYear(cls, name, birthYear):
-        return cls(name, date.today().year - birthYear)
+    def fromBirthYear(cls, name, birthYear): # the first argument of classmethod must be cls
+        return cls(name, date.today().year - birthYear) # otherwise, cls and self can be used interchangeably.
 
     def display(self):
         print(self.name + "'s age is: " + str(self.age))
