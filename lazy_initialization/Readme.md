@@ -25,7 +25,10 @@ AND the subsequent access to the field does NOT involve any synchronization!
 Double-check idiom
 ---
 
+For non-static instance creation:
+
 ```
+
 private volatile FieldType field;
 
 private FieldType getField() {
@@ -39,6 +42,7 @@ private FieldType getField() {
       return field;
     }
   }
+}
 ```
 
 
