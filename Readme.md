@@ -8,9 +8,7 @@ Design Pattern Notes
 
 Resource
 ---
-Somehow I feel learning by example is the most efficient for me.
-
-Some guides from the model projects:
+Some model projects:
 * [Guava](https://github.com/google/guava/wiki)
 * [Guice](https://github.com/google/guice/wiki/Motivation)
 * ...
