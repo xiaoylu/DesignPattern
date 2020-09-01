@@ -8,7 +8,7 @@ walks thru a list of bits (each represents a resource, e.g. socket), and calls a
 
 The problem is the cost grows by O(N), where N is the total number of bits.
 
-[http://www.wangafu.net/~nickm/libevent-book/01_intro.html]([http://www.wangafu.net/~nickm/libevent-book/01_intro.html)
+[http://www.wangafu.net/~nickm/libevent-book/01_intro.html](http://www.wangafu.net/~nickm/libevent-book/01_intro.html)
 When comparing `select` vs `epoll`:
 * `select` has to walk through the file descriptor (fd) list, thus O(N).
 * For a single fd, `epoll` puts the fds it waits on into a list. When an event gets `epoll`-ed, the callback wakes up any waiters.
