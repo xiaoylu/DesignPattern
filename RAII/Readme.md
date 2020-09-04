@@ -5,6 +5,8 @@ The basic idea is to represent a resource by a local object (i.e. "resource hand
 
 This prevents resource leakage, because the destructor of "resource handle" will always be called (C++). 
 
+We can think of `vector` or `string` as resource handles with carefully crafted interfaces (to facilitate user access and resource management.) 
+
 ```cpp
 	class File_handle {
 		FILE* p;
