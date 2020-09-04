@@ -5,8 +5,6 @@ The basic idea is to represent a resource by a local object (i.e. "resource hand
 
 This prevents resource leakage, because the destructor of "resource handle" will always be called (C++). 
 
-Thanks to garbage collection, Java doesn’t have/need this feature.
-
 ```cpp
 	class File_handle {
 		FILE* p;
@@ -29,6 +27,8 @@ Thanks to garbage collection, Java doesn’t have/need this feature.
 		// use file through f
 	}
 ```
+
+Thanks to garbage collection, Java doesn’t have/need this feature.
 
 Reference
 ===
