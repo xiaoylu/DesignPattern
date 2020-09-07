@@ -22,7 +22,7 @@ Thus, `epoll` scales better, taking O(1) time.
 
 [libuv](http://docs.libuv.org/en/v1.x/design.html) provides unified API for different types of `epoll` (on different OSs)
 * How is event-loop implemented?
-  * Circularly linked list libuv uses to store requests, handles and other dynamic stuff. (example)[https://gist.github.com/bodokaiser/5657156]
+  * Circularly linked list libuv uses to store requests, handles and other dynamic stuff. [Example](https://gist.github.com/bodokaiser/5657156)
 
 
 Is async threading always good?
