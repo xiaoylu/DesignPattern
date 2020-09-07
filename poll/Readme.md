@@ -26,7 +26,7 @@ Event-loop
 Naive web server:
 * always creates a new thread whenever a new connection is built.
   * modern web servers need to deal with 10K clients concurrently (C10K problem).
-  * #threads is limited by hardward and software.
+  * max #threads is limited by hardward and software.
 
 [libuv](http://docs.libuv.org/en/v1.x/design.html) provides unified API for different types of `epoll` (on different OSs)
 * How is event-loop implemented?
@@ -34,16 +34,16 @@ Naive web server:
     * [Example for understanding](https://gist.github.com/bodokaiser/5657156)
     * [C Macro to locate any instance in memory](https://radek.io/2012/11/10/magical-container_of-macro/)
     * [Nice figure in this blog (scroll down)](https://blog.butonly.com/posts/node.js/libuv/1-libuv-overview/)
-  *  
-
-Is async threading always good?
----
-
-* Completely async program can waste more memory space (and other resources due to competition).
-* Too many callbacks can be complicated.
+  * 
 
 Coroutine
 ---
+
+Is async threading always good?
+* Completely async program can waste more memory space (and other resources due to competition).
+* Too many callbacks can be complicated.
+
+Coroutine:
 * non-preemptive, routines are suspended and resumed.
 * e.g. python yeild, program proceeds from the last suspended point.
 * gorouting: user-space scheduling, less cost than threads.
