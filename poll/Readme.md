@@ -17,13 +17,24 @@ Comparing `select`/`poll` vs. `epoll`:
   * If one resource in the interest list is ready, linux kernal calls a callback to move this resource into the ready list.
     * Notice that this step is done by kernel async.
   * `epoll_wait` returns the ready list if it's non-empty, otherwise blocks thread and sleeps.
+    * so CPU is not occupied, CPU can be used by other processes.
  
 Thus, `epoll` scales better, taking O(1) time.
 
+Event-loop
+---
+Naive web server:
+* always creates a new thread whenever a new connection is built.
+  * modern web servers need to deal with 10K clients concurrently (C10K problem).
+  * #threads is limited by hardward and software.
+
 [libuv](http://docs.libuv.org/en/v1.x/design.html) provides unified API for different types of `epoll` (on different OSs)
 * How is event-loop implemented?
-  * Circularly linked list libuv uses to store requests, handles and other dynamic stuff. [Example for understanding](https://gist.github.com/bodokaiser/5657156)
-
+  * Circularly linked list libuv uses to store requests, handles and other dynamic stuff. 
+    * [Example for understanding](https://gist.github.com/bodokaiser/5657156)
+    * [C Macro to locate any instance in memory](https://radek.io/2012/11/10/magical-container_of-macro/)
+    * [Nice figure in this blog (scroll down)](https://blog.butonly.com/posts/node.js/libuv/1-libuv-overview/)
+  *  
 
 Is async threading always good?
 ---
