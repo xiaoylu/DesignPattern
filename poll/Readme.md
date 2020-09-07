@@ -11,7 +11,7 @@ The cost grows by O(N), where N is the total number of bits.
 
 Comparing `select`/`poll` vs. `epoll`:
 * `select`/`poll` has to walk through the file descriptor (fd) list, thus O(N) time.
-*  `epoll` prepares the set of fd that are "ready" for I/O ([man](https://man7.org/linux/man-pages/man7/epoll.7.html), [snippet](https://zhuanlan.zhihu.com/p/93609693)).
+* `epoll` prepares the set of fd that are "ready" for I/O ([man](https://man7.org/linux/man-pages/man7/epoll.7.html), [snippet](https://zhuanlan.zhihu.com/p/93609693)).
   * `epoll_create1`creates a new epoll instance.
   * `epoll_ctrl` adds items to the interest list of the epoll instance
   * If one resource in the interest list is ready, linux kernal calls a callback to move this resource into the ready list.
