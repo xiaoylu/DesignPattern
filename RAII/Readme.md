@@ -32,6 +32,8 @@ We can think of `vector` or `string` as resource handles with carefully crafted 
 
 Thanks to garbage collection, Java doesn’t have/need this feature.
 
+In Golang, `defer` makes sure the resources get released after a function returns.
+
 Reference
 ===
 [https://www.stroustrup.com/bs_faq2.html#finally](https://www.stroustrup.com/bs_faq2.html#finally)
