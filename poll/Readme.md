@@ -34,8 +34,17 @@ Naive web server:
     * [Example for understanding](https://gist.github.com/bodokaiser/5657156)
     * [C Macro to locate any instance in memory](https://radek.io/2012/11/10/magical-container_of-macro/)
     * [Nice figure in this blog (scroll down)](https://blog.butonly.com/posts/node.js/libuv/1-libuv-overview/)
-  * 
-
+  * **Simplified** I/O poll step with `epoch`:
+    * `uv__io_poll` iterates thru the `uv__io_t` struct chained on `loop->watcher_queue`
+    * for each `uv__io_t`, add the `fd` it's been watching and pending events to the interest list via `epoll_ctl`
+    * `epoll_wait` the events that's ready
+    * for each events that's ready, call the `callback` associated with this event
+    * In short, for each tick
+      * process the current event loop
+      * wait for the events that's ready
+      * add new events to the next loop
+    * A thread pool shared by different loops do the real time-consuming I/O work.
+    
 Coroutine
 ---
 
