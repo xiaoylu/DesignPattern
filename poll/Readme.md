@@ -39,10 +39,10 @@ Naive web server:
     * for each `uv__io_t`, add the `fd` it's been watching and pending events to the interest list via `epoll_ctl`
     * `epoll_wait` the events that's ready
     * for each events that's ready, call the `callback` associated with this event
-    * In short, for each tick
+    * In short, for each tick (superstep?)
       * process the current event loop
       * wait for the events that's ready
-      * add new events to the next loop
+      * add new events to the loop to process in the next tick
     * A thread pool shared by different loops do the real time-consuming I/O work.
     
 Coroutine
