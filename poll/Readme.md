@@ -53,13 +53,32 @@ Is async threading always good?
 * Too many callbacks can be complicated.
 
 Coroutine:
-* non-preemptive, routines are suspended and resumed.
-* e.g. python yeild, program proceeds from the last suspended point.
-* gorouting: user-space scheduling, less cost than threads.
+* non-preemptive, routines are suspended and resumed, e.g. python yeild, program proceeds from the last suspended point.
+* [Goroutine](https://golang.org/src/runtime/proc.go):
+  * [Paper](http://supertech.csail.mit.edu/papers/steal.pdf):
+    * Processor: a resource required to run code
+    * Thread: a sequence of meaningful instruction to execute (from the user's perspective)
+    * Busy-leaves algo: 
+      * Processor P works on each instruction of thread T_a util
+        * T_a spawns(下蛋) T_b: P returns T_a to a centralized "thread pool" and P works on its **child** T_b 
+        * T_a stalls(歇): P returns T_a to "thread pool" and start idling.
+        * T_a dies: P picks up T_a's **parent** T_c which has no living children.
+      * No leaf thread in a strict multithreaded computation can stall, so the execution schedule keeps the leaves "busy".
+    * Work-stealing algo:
+      * Centralized thread pool ==> distributed ready deque of thread at each P.
+      * A processor pushing and popping from the bottom of its **ready deque of threads**.
+      * Stealing: threads that are migrated to other processors are removed from the ready deque top.
+      * Processor P works on each instruction of thread T_a util
+        * T_a spawns T_b: P begins work on T_b and puts T_a at the deque bottom
+        * T_a stalls or dies: P removes and begins work on the deque bottommost thread; if deque is empty, P steals the topmost thread from the ready deque of another randomly chosen P'
+        * T_a enables a stalled T_b: P puts T_b at deque bottom.
+
 
 Further reading
 ---
 [https://www.geekgay.com/article-1430.html](https://www.geekgay.com/article-1430.html)
-
+[Paper](http://supertech.csail.mit.edu/papers/steal.pdf)
+[Goroutine Design Doc](https://golang.org/s/go11sched)
+[Lockfree Algorithms](http://www.1024cores.net/home/lock-free-algorithms/introduction)
 
 
