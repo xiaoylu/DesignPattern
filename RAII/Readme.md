@@ -37,5 +37,5 @@ In Golang, `defer` makes sure the resources get released after a function return
 
 Reference
 ===
-[https://www.stroustrup.com/bs_faq2.html#finally](https://www.stroustrup.com/bs_faq2.html#finally)
-[https://www.yegor256.com/2017/08/08/raii-in-java.html](https://www.yegor256.com/2017/08/08/raii-in-java.html)
+* [https://www.stroustrup.com/bs_faq2.html#finally](https://www.stroustrup.com/bs_faq2.html#finally)
+* [https://www.yegor256.com/2017/08/08/raii-in-java.html](https://www.yegor256.com/2017/08/08/raii-in-java.html)
