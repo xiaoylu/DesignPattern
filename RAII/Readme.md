@@ -3,9 +3,9 @@ resource acquisition is initialization (C++)
 
 The basic idea is to represent a resource by a local object (i.e. "resource handle"), so that the local object's destructor will release the resource.
 
-This prevents resource leakage, because the destructor of "resource handle" will always be called (C++). 
+This prevents resource leakage, because the destructor of "resource handle" will always be called. 
 
-We can think of `vector` or `string` as resource handles with carefully crafted interfaces (to facilitate user access and resource management.) 
+We can think of `vector` or `string` as resource handles with carefully crafted interfaces of a "list" (to facilitate user access and resource management.) 
 
 ```cpp
 	class File_handle {
@@ -27,6 +27,7 @@ We can think of `vector` or `string` as resource handles with carefully crafted 
 	{
 		File_handle f(fn,"rw");	// open fn for reading and writing
 		// use file through f
+		// when this f() ends, the file access session gets closed.
 	}
 ```
 
