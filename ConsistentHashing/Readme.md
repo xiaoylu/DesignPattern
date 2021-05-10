@@ -15,9 +15,9 @@ Idea
 Load balancing
 ---
 * when add cache server
-  * new cache grabs the keys from the previous server
+  * new cache grabs the keys from the previous server in the ring
 * when remove cache server
-  * removed cache gives its keys to the next server
+  * removed cache gives its keys to the next server in the ring
 * virtual replicas
-  * map one cache server to many integers
+  * map one cache server to many integers in the ring
 
