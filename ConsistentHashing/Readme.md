@@ -3,8 +3,8 @@ Consistent Hashing
 
 Applications
 ---
-* Distributed Hash Table (DHT)
-* Distributed Caching
+* Distributed Hash Table (DHT) and Distributed Caching
+  * maps the key to a location where the value is stored.
 
 Idea
 ---
