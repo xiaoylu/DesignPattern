@@ -1,0 +1,9 @@
+# Compile >> Runtime
+
+It helps to detect flaws earlier; a compile error is way better than an runtime error.
+
+Go lang has strict requirement for types -- one reason why programmer makes less mistakes using Go in general.
+Code won't compile if type does not match.
+
+Maybe, between compile and runtime, static initialization sits in the middle.
+Static initialization happens before `main()` so that a program won't start up if certain constraint is not satisfied.
