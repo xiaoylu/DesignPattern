@@ -1,0 +1,34 @@
+# Singleton And Registration Pattern
+
+## Singleton
+It helps to make sure a single copy of the instance exists.
+
+```cc
+// XSingleton is simply a wrapper of X which is optional.
+struct XSingleton {
+  X x;
+  explict XSingleton() {
+    x.init();
+  }
+};
+
+// API to obtain the unique X.
+X* getSingletonX() {
+  static XSingleton singleton;
+  return &singleton.x;
+}
+
+static X& first_call = (*getSingletonX());
+```
+
+## Registration Pattern
+Use static initialization so that program can terminate early if unhealthy (rather than an error at later runtime)
+
+In a header file, we define
+```cc
+#define REGISTER_MYCLASS(X)
+  <put the singleton program above inside a macro>
+```
+
+And we can use this macro right after every defintion of X that should be a singleton.
+
