@@ -34,16 +34,19 @@ And we can use this macro right after every defintion of X that should be a sing
 
 ## Static Global Initialization
 
+DO NOT use global `static const std::string`!
+
 A static member/local variable is initialized at *runtime* when the first time its definition was reached.
-So it's dynamic allocation, which is a bad practice because
-- another thread can access a static variable which has been destroyed.
+
+Such dynamic allocation is a bad practice because
+- order undeterministic. another thread can access a static variable which has been destroyed.
 - if this variable can not be trivally destroyed, then there could be memory leakage.
 
 ```
 // BAD
 namespace <global_namespace> {
-static char* a = "A";
-static std::string b = "B";
+static const char* a = "A";
+static const std::string b = "B";
 }
 
 // GOOD
@@ -57,12 +60,13 @@ absl::string_view GetX() {
 }
 
 // Option 2.
-// compile time initialization; c++17 require only one copy of the inline global variable. 
+// compile time initialization; c++17 require only one copy of the inline global variable.
+// string_view hold a `const char*`, which is not destroyed.
 inline constexpr absl::string_vew y = "Y";
 }
 ```
 
-Note that primary types such as int, float does not matter because they can be trivially destroyed.
+Note that primary types such as int, float does not apply here because they can be trivially destroyed.
 
 
 
