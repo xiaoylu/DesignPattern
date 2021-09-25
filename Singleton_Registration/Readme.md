@@ -31,3 +31,39 @@ In a header file, we define
 ```
 
 And we can use this macro right after every defintion of X that should be a singleton.
+
+## Static Global Initialization
+
+A static member/local variable is initialized at *runtime* when the first time its definition was reached.
+So it's dynamic allocation, which is a bad practice because
+- another thread can access a static variable which has been destroyed.
+- if this variable can not be trivally destroyed, then there could be memory leakage.
+
+```
+// BAD
+namespace <global_namespace> {
+static char* a = "A";
+static std::string b = "B";
+}
+
+// GOOD
+namespace <global_namespace> {
+// Option 1.
+static absl::string_view x = GetX();
+absl::string_view GetX() {
+  // local_x will never be destroyed.
+  static std::string* local_x = new std::string("X");
+  return *local_x;
+}
+
+// Option 2.
+// compile time initialization; c++17 require only one copy of the inline global variable. 
+inline constexpr absl::string_vew y = "Y";
+}
+```
+
+Note that primary types such as int, float does not matter because they can be trivially destroyed.
+
+
+
+
